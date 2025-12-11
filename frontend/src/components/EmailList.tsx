@@ -80,7 +80,7 @@ export default function EmailList({ tags, hideEmails }: { tags: string[]; hideEm
         {data?.data?.map((emailObj) => (
           <button
             key={emailObj.id}
-            className="block w-full cursor-pointer rounded-md py-2 pl-4 text-start text-lg hover:bg-gray-50"
+            className="block w-full cursor-pointer overflow-hidden py-2 pl-4 text-start text-lg hover:bg-gray-50"
             onClick={() => handleShowEmailDetails(emailObj)}
           >
             {hideEmails ? maskEmail(emailObj.email) : emailObj.email}
