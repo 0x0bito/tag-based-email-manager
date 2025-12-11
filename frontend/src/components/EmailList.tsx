@@ -3,8 +3,9 @@ import type { emailObjectType, emailsResponse } from "@/types";
 import { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import useSwr, { mutate } from "swr";
 import EmailDetails from "./EmailDetails";
+import { maskEmail } from "@/utils";
 
-export default function EmailList({ tags }: { tags: string[] }) {
+export default function EmailList({ tags, hideEmails }: { tags: string[]; hideEmails: boolean }) {
   const [selectedEmailObj, setSelectedEmailObj] = useState<emailObjectType>();
   const [open, setOpen] = useState(false);
   const [hasMore, setHasMore] = useState(true);
@@ -82,7 +83,7 @@ export default function EmailList({ tags }: { tags: string[] }) {
             className="block w-full cursor-pointer rounded-md py-2 pl-4 text-start text-lg hover:bg-gray-50"
             onClick={() => handleShowEmailDetails(emailObj)}
           >
-            {emailObj.email}
+            {hideEmails ? maskEmail(emailObj.email) : emailObj.email}
           </button>
         ))}
       </div>

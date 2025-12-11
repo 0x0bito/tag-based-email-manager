@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Toaster } from "sonner";
 import AddEmailDialog from "./components/AddEmailDialog";
 import EmailList from "./components/EmailList";
@@ -9,6 +9,23 @@ import { Input } from "./components/ui/input";
 export default function App() {
   const [email, setEmail] = useState<string>("");
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [hideEmails, setHideEmails] = useState(() => {
+    try {
+      const saved = localStorage.getItem("hideEmails");
+
+      if (saved === null) return false;
+
+      const parsed = JSON.parse(saved);
+
+      return typeof parsed === "boolean" ? parsed : false;
+    } catch {
+      return false;
+    }
+  });
+
+  useEffect(() => {
+    localStorage.setItem("hideEmails", JSON.stringify(hideEmails));
+  }, [hideEmails]);
 
   let searchTimeOut: ReturnType<typeof setTimeout>;
   const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,11 +59,22 @@ export default function App() {
         <div id="actionBarBtns" className="flex w-full max-w-xs gap-4">
           <AddEmailDialog />
           <TagsList selectedTags={selectedTags} setSelectedTags={setSelectedTags} />
+          <button
+            className="cursor-pointer"
+            aria-label="show and hide emails"
+            onClick={() => setHideEmails(!hideEmails)}
+          >
+            {hideEmails ? <img src="/eye-off.svg" alt="eye" /> : <img src="/eye.svg" alt="eye" />}
+          </button>
         </div>
       </div>
 
       {/* Emails */}
-      {email ? <SearchEmailList email={email} /> : <EmailList tags={selectedTags} />}
+      {email ? (
+        <SearchEmailList email={email} />
+      ) : (
+        <EmailList tags={selectedTags} hideEmails={hideEmails} />
+      )}
     </div>
   );
 }

@@ -30,3 +30,9 @@ export function areEmailObjectsEqual(first: emailObjectType, second: emailObject
   }
   return false;
 }
+
+export function maskEmail(email: string) {
+  const [name, domain] = email.split("@");
+  const maskedName = `${name[0]}***${name[name.length - 1]}`;
+  return `${maskedName}@${domain}`;
+}
