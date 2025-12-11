@@ -88,7 +88,11 @@ export default function EmailList({ tags, hideEmails }: { tags: string[]; hideEm
         ))}
       </div>
       <div ref={loadMoreRef}></div>
-      {!hasMore && <p className="mt-4 font-medium text-gray-600">No more emails left</p>}
+      {!hasMore && (
+        <p className="mt-4 font-medium text-gray-600">
+          {data?.data && data?.data?.length > 0 ? "No more emails left" : "No emails"}
+        </p>
+      )}
       {selectedEmailObj && (
         <EmailDetails open={open} setOpen={setOpen} selectedEmailObj={selectedEmailObj} />
       )}
