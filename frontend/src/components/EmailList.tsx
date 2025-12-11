@@ -53,7 +53,9 @@ export default function EmailList({ tags }: { tags: string[] }) {
   useEffect(() => {
     if (loadMoreRef.current) {
       observerRef.current?.disconnect();
-      observerRef.current = new IntersectionObserver(observerCallback, { threshold: 0.8 });
+      observerRef.current = new IntersectionObserver(observerCallback, {
+        threshold: 0.8,
+      });
       observerRef.current?.observe(loadMoreRef.current);
     }
     return () => observerRef.current?.disconnect();
@@ -73,7 +75,7 @@ export default function EmailList({ tags }: { tags: string[] }) {
 
   return (
     <Fragment>
-      <div className="w-full divide-y divide-gray-200 p-4">
+      <div className="w-full divide-y divide-gray-200">
         {data?.data?.map((emailObj) => (
           <button
             key={emailObj.id}
@@ -85,7 +87,7 @@ export default function EmailList({ tags }: { tags: string[] }) {
         ))}
       </div>
       <div ref={loadMoreRef}></div>
-      {!hasMore && <p className="font-medium text-gray-600">No more emails left</p>}
+      {!hasMore && <p className="mt-4 font-medium text-gray-600">No more emails left</p>}
       {selectedEmailObj && (
         <EmailDetails open={open} setOpen={setOpen} selectedEmailObj={selectedEmailObj} />
       )}

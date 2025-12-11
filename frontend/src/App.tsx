@@ -31,14 +31,15 @@ export default function App() {
       <h1 className="mb-14 text-3xl font-bold">Email Dashboard</h1>
 
       {/* Action Bar */}
-      <div className="mr-auto mb-4 flex w-full items-center gap-4 max-sm:flex-col sm:max-w-xl">
+      <div className="mr-auto mb-6 flex w-full items-center justify-between gap-4 pl-3">
         <Input
           name="email"
           placeholder="Search for an email"
           aria-label="email input"
           onChange={handleSearchInput}
+          className="max-w-xs"
         />
-        <div id="actionBarBtns" className="flex w-full gap-4">
+        <div id="actionBarBtns" className="flex w-full max-w-xs gap-4">
           <AddEmailDialog />
           <TagsList selectedTags={selectedTags} setSelectedTags={setSelectedTags} />
         </div>
