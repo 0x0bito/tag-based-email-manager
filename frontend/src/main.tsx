@@ -5,6 +5,7 @@ import "./index.css";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
+    <title>tag-based Email Manager</title>
     <App />
   </StrictMode>
 );
