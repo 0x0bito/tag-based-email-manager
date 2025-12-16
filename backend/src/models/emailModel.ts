@@ -24,7 +24,7 @@ export async function getEmailById(id: string) {
 export async function getEmailByEmail(email: string, limit: number, offset: number) {
   const result = await pool.query(
     "SELECT * FROM emails WHERE email ILIKE $1 ORDER BY id LIMIT $2 OFFSET $3",
-    [`${email}%`, limit, offset]
+    [`%${email}%`, limit, offset]
   );
   return result.rows;
 }
